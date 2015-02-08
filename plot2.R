@@ -1,5 +1,11 @@
 dataSet = "../household_power_consumption.txt"
 
+## read the data
+setClass('myDate')
+setClass('myTime')
+setAs("character","myDate", function(from) as.Date(from, format="%d/%m/%Y"))
+setAs("character","myTime", function(from) strptime(from, format="%H:%M:%S"))
+
 f <- read.table(dataSet,
                 sep=";",
                 na.strings="?",
@@ -22,8 +28,7 @@ f <- read.table(dataSet,
                             "numeric",
                             "numeric",
                             "numeric"))
-## to coerce a col in df
-#df[,i] <- as.numeric(df[,i])
+
 date <- as.Date(f$Date,format="%d/%m/%Y")
 
 ## filter out the data and plot it
@@ -32,7 +37,7 @@ data <- f[select,]
 datetime <- strptime(paste(data$Date,data$Time,sep= " "), format = "%d/%m/%Y %H:%M:%S")
 
 ## copy the plot to png file
-png(file="plot2.png",width = 480, height = 480, units = "px")
+png(file="plot2.png",width = 480, height = 480, units = "px", bg="transparent")
 plot(datetime,
      data$Global_active_power,
      type="l",

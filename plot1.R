@@ -1,9 +1,12 @@
 dataSet = "../household_power_consumption.txt"
 
-## to read date in a specific format 
+# to read date in a specific format 
 ## https://stackoverflow.com/questions/13022299/specify-date-format-for-colclasses-argument-in-read-table-read-csv
-# setAs("character","myDate", function(from) as.Date(from, format="%d:%m:%Y"))
-# tmp2 <- read.csv(con, colClasses=c('numeric','myDate'))
+## setAs("character","myDate", function(from) as.Date(from, format="%d:%m:%Y"))
+## tmp2 <- read.csv(con, colClasses=c('numeric','myDate'))
+
+setClass('myDate')
+setClass('myTime')
 setAs("character","myDate", function(from) as.Date(from, format="%d/%m/%Y"))
 setAs("character","myTime", function(from) strptime(from, format="%H:%M:%S"))
 
@@ -22,14 +25,14 @@ f <- read.table(dataSet,
                               "Sub_metering_3"),
                 colClass= c("myDate",
                             "myTime",
-                            "integer",
-                            "integer",
-                            "integer",
-                            "integer",
-                            "integer",
-                            "integer",
-                            "integer"))
-## to coerce a col in df
+                            "numeric",
+                            "numeric",
+                            "numeric",
+                            "numeric",
+                            "numeric",
+                            "numeric",
+                            "numeric"))
+## tip: to coerce a col in df
 #df[,i] <- as.numeric(df[,i])
 
 
